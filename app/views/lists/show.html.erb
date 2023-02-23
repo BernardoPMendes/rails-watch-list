@@ -1,0 +1,43 @@
+<div class="color">
+  <div class="container">
+    <div class="">
+      <img class="img-net" src="https://cdn.cookielaw.org/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png" alt="Description of image">
+    </div>
+  </div>
+</div>
+<div class="m-5">
+  <div class="d-flex justify-content-between">
+
+      <%= link_to "add movie", new_list_bookmark_path(@list), class:"text-decoration-none btn btn-outline-secondary btn-sm mb-4" %>
+      <%= link_to "back home", lists_path, class:"text-decoration-none btn btn-outline-secondary btn-sm mb-4" %>
+  </div>
+
+  <% @list.movies.each do |movie| %>
+    <% bookmark = Bookmark.find_by(movie_id: movie.id) %>
+    <div class="">
+      <%= image_tag movie.poster_url, alt:"img", width: 100 %>
+    </div>
+
+    <div class="">
+      <h1 class="fs-1">Title</h1>
+      <p class="fs-3" ><%= movie.title %></p>
+    </div>
+
+    <div class="">
+      <h2 class="fs-2">Overview</h2>
+      <p class="fs-5"><%= movie.overview %></p>
+    </div>
+
+    <p class="fs-5" ><%= bookmark.comment %></p>
+
+    <div class="">
+      <h2 class="fs-2">Rating</h2>
+      <p class="fs-5"><%= movie.rating %></p>
+    </div>
+
+    <%= link_to "delete", bookmark_path(bookmark), data: { turbo_method: :delete, turbo_confirm: "Are you sure ?" } %>
+
+  <% end %>
+
+
+</div>
